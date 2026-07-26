@@ -58,9 +58,24 @@ GitHub Actions chạy lại toàn bộ kiểm tra trên push và pull request. D
 
 ## Deploy
 
+### Vercel
+
+Khi import GitHub repo lên Vercel:
+
+- Application/Framework Preset: `Next.js`.
+- Root Directory: để trống hoặc `./`.
+- Install Command: để mặc định.
+- Build Command: `npm run build`.
+- Output Directory: để mặc định.
+- Node.js Version: 22 hoặc 24.
+
+Nhập toàn bộ biến cần thiết từ `.env.example` vào Vercel Environment Variables, đặc biệt `NEXT_PUBLIC_SITE_URL`, `DATABASE_URL`, `AUTH_SECRET`, `ADMIN_EMAIL`, `ADMIN_PASSWORD` và thông tin pháp lý/liên hệ thật. Hướng dẫn chi tiết nằm tại `docs/VERCEL_DEPLOY.md`.
+
+### Checklist chung
+
 1. Tạo PostgreSQL, đặt secret production và chạy `npm run db:deploy`.
 2. Chỉ seed catalog đã được duyệt bằng `npm run db:seed`.
-3. Build bằng `npm run build`, chạy bằng `npm run start` sau reverse proxy HTTPS.
+3. Build bằng `npm run build`, chạy bằng `npm run start` sau reverse proxy HTTPS nếu không dùng Vercel.
 4. Cấu hình IPN public cho `/api/payments/vnpay/ipn` và `/api/payments/momo/ipn`.
 5. Chạy giao dịch sandbox end-to-end, đối soát amount/currency/order và retry IPN.
 6. Xác minh canonical, `robots.txt`, `sitemap.xml`, CSP và security headers trên domain thật.
