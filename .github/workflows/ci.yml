@@ -94,7 +94,18 @@ jobs:
             exit 1
           fi
       - run: npx playwright install --with-deps chromium
-      - run: npm run test:e2e
+      - name: Run end-to-end tests
+        shell: bash
+        run: |
+          set -o pipefail
+          if ! npm run test:e2e 2>&1 | tee e2e.log; then
+            failure_message="$(tail -c 10000 e2e.log)"
+            failure_message="${failure_message//'%'/'%25'}"
+            failure_message="${failure_message//$'\r'/'%0D'}"
+            failure_message="${failure_message//$'\n'/'%0A'}"
+            echo "::error title=Playwright end-to-end tests failed::$failure_message"
+            exit 1
+          fi
       - if: failure()
         uses: actions/upload-artifact@v7
         with:
