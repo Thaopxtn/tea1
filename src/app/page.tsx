@@ -40,6 +40,65 @@ const articles = [
   ],
 ];
 
+const teaProcessSteps = [
+  {
+    title: "Thu hái",
+    detail:
+      "Chọn một tôm hai lá vào sáng sớm, tránh búp dập nát để giữ hương xanh non.",
+    craft: "Búp non",
+    image: "/images/catalog-tra-bup.webp",
+    alt: "Búp trà Thái Nguyên xanh non vừa được thu hái",
+  },
+  {
+    title: "Làm héo",
+    detail:
+      "Trải mỏng trên nong tre để lá dịu xuống, bay bớt ẩm nhưng vẫn còn độ mềm.",
+    craft: "Hong dịu",
+    image: "/images/nghe-nhan.png",
+    alt: "Đôi tay nghệ nhân tuyển và làm héo búp chè trên nia tre",
+  },
+  {
+    title: "Diệt men",
+    detail:
+      "Dùng nhiệt cao đúng lúc để khóa màu nước xanh và hạn chế oxy hóa quá đà.",
+    craft: "Khóa hương",
+    image: "/images/tra-bup-thai-nguyen.png",
+    alt: "Búp trà xanh sau công đoạn diệt men",
+  },
+  {
+    title: "Vò trà",
+    detail:
+      "Vò đều tay để cánh săn lại, giải phóng dịch trà và tạo dáng cong tự nhiên.",
+    craft: "Tạo cánh",
+    image: "/images/tra-moc-cau-thai-nguyen.png",
+    alt: "Cánh trà móc câu Thái Nguyên sau khi vò tạo dáng",
+  },
+  {
+    title: "Sao khô",
+    detail:
+      "Sao nhiều lượt với lửa nhỏ dần để hạ ẩm, cố định hương cốm và hậu ngọt.",
+    craft: "Giữ hậu",
+    image: "/images/catalog-tra-moc-cau.webp",
+    alt: "Cánh trà khô xanh sẫm sau khi sao",
+  },
+  {
+    title: "Phân loại",
+    detail:
+      "Sàng bỏ cám, cánh vụn và chọn lại theo độ đều để mẻ trà sạch, đẹp mắt.",
+    craft: "Sàng tuyển",
+    image: "/images/tra-still-life.png",
+    alt: "Trà khô được bày cùng chén gốm để kiểm tra thành phẩm",
+  },
+  {
+    title: "Đóng gói",
+    detail:
+      "Đóng kín, hạn chế oxy và hơi ẩm để hương trà ổn định khi đến tay người uống.",
+    craft: "Khóa tươi",
+    image: "/images/catalog-hop-qua.webp",
+    alt: "Hộp quà trà được đóng gói chỉn chu",
+  },
+];
+
 export default function HomePage() {
   return (
     <>
@@ -165,34 +224,60 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section container">
-        <div className="section-heading">
-          <div>
-            <p className="eyebrow">Từ búp đến chén</p>
-            <h2>Bảy bước, một mẻ trà.</h2>
+      <section className="section process-showcase">
+        <div className="container">
+          <div className="section-heading process-heading">
+            <div>
+              <p className="eyebrow">Từ búp đến chén</p>
+              <h2>Bảy bước, một mẻ trà.</h2>
+            </div>
+            <p>
+              Một mẻ trà ngon không đến từ một động tác đơn lẻ. Nó là nhịp nối
+              giữa búp non, lửa sao, độ ẩm và kinh nghiệm của người làm trà.
+            </p>
           </div>
-          <p>
-            Từ búp tươi đến trà thành phẩm là một chuỗi thao tác liên tục.
-            Nhiệt, thời gian và đôi tay người làm trà quyết định dáng cánh,
-            hương và vị.
-          </p>
+
+          <div className="process-shell">
+            <figure className="process-feature">
+              <Image
+                src="/images/nghe-nhan.png"
+                alt="Nghệ nhân Thái Nguyên tuyển búp trà trên nia tre trong ánh sáng dịu"
+                fill
+                sizes="(max-width: 900px) 100vw, 42vw"
+              />
+              <figcaption>
+                <span>Mẻ xuân</span>
+                <strong>Canh hương bằng tay, giữ vị bằng lửa.</strong>
+              </figcaption>
+            </figure>
+
+            <ol
+              className="process-list"
+              aria-label="Bảy bước chế biến trà Thái Nguyên"
+            >
+              {teaProcessSteps.map((step, index) => (
+                <li className="process-step" key={step.title}>
+                  <span className="process-index">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <div className="process-thumb">
+                    <Image
+                      src={step.image}
+                      alt={step.alt}
+                      fill
+                      sizes="(max-width: 700px) 38vw, (max-width: 1100px) 22vw, 12vw"
+                    />
+                  </div>
+                  <div className="process-copy">
+                    <span className="process-craft">{step.craft}</span>
+                    <strong>{step.title}</strong>
+                    <p>{step.detail}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
         </div>
-        <ol className="process-list">
-          {[
-            ["Thu hái", "Chọn đúng tiêu chuẩn búp"],
-            ["Làm héo", "Giảm bớt ẩm trong lá"],
-            ["Diệt men", "Dừng quá trình oxy hóa"],
-            ["Vò trà", "Tạo dáng cho cánh"],
-            ["Sao khô", "Ổn định độ ẩm và hương"],
-            ["Phân loại", "Loại cám và cánh vụn"],
-            ["Đóng gói", "Hạn chế oxy, ẩm"],
-          ].map(([title, detail]) => (
-            <li key={title}>
-              <strong>{title}</strong>
-              <span>{detail}</span>
-            </li>
-          ))}
-        </ol>
       </section>
 
       <section className="section soft-panel">
