@@ -1126,102 +1126,98 @@ p {
 }
 
 .process-list {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px;
+  display: flex;
+  flex-direction: column;
   padding: 0;
   margin: 0;
   list-style: none;
+  border-top: 1px solid var(--border);
 }
 
 .process-step {
   position: relative;
-  min-height: 320px;
-  overflow: hidden;
-  border: 1px solid rgb(16 45 37 / 11%);
-  border-radius: 6px;
-  background: rgb(251 250 244 / 72%);
-  box-shadow: 0 18px 52px rgb(16 45 37 / 9%);
-}
-
-.process-step:nth-child(3n + 1) {
-  transform: translateY(24px);
-}
-
-.process-step:nth-child(4) {
-  grid-row: span 2;
-  min-height: 656px;
-}
-
-.process-step:nth-child(7) {
-  grid-column: span 2;
-  min-height: 360px;
-}
-
-.process-index {
-  position: absolute;
-  z-index: 2;
-  top: 16px;
-  left: 16px;
   display: grid;
-  width: 42px;
-  height: 42px;
-  place-items: center;
-  border: 1px solid rgb(251 250 244 / 62%);
-  border-radius: 50%;
-  color: var(--cream-50);
-  background: rgb(16 45 37 / 58%);
-  font-size: 0.76rem;
-  font-weight: 800;
-  backdrop-filter: blur(12px);
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 24px;
+  align-items: center;
+  padding: clamp(32px, 5vw, 48px) 0;
+  border-bottom: 1px solid var(--border);
+  background: transparent;
+  overflow: hidden;
 }
 
-.process-thumb {
+.process-number {
   position: absolute;
-  inset: 0;
-}
-
-.process-thumb::after {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(180deg, rgb(16 45 37 / 4%), rgb(16 45 37 / 76%)),
-    linear-gradient(28deg, rgb(173 127 41 / 18%), transparent 52%);
-  content: "";
+  z-index: 0;
+  left: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-serif);
+  font-size: clamp(8rem, 18vw, 14rem);
+  font-weight: 600;
+  line-height: 1;
+  color: var(--tea-950);
+  opacity: 0.04;
+  pointer-events: none;
 }
 
 .process-copy {
-  position: absolute;
+  position: relative;
   z-index: 1;
-  right: 18px;
-  bottom: 18px;
-  left: 18px;
-  color: var(--cream-50);
+  color: var(--ink-950);
 }
 
 .process-craft {
-  padding: 8px 10px;
-  color: var(--cream-50);
-  background: rgb(16 45 37 / 28%);
-  backdrop-filter: blur(12px);
+  display: inline-block;
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--tea-800);
+  margin-bottom: 12px;
 }
 
 .process-copy strong {
   display: block;
-  margin-top: 14px;
   font-family: var(--font-serif);
-  font-size: clamp(1.45rem, 2.1vw, 2.35rem);
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
   font-weight: 600;
-  letter-spacing: -0.01em;
-  line-height: 1.04;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--tea-950);
 }
 
 .process-copy p {
-  max-width: 31ch;
-  margin-top: 10px;
-  color: rgb(251 250 244 / 82%);
-  font-size: 0.86rem;
-  line-height: 1.65;
+  max-width: 48ch;
+  margin-top: 12px;
+  font-size: 1rem;
+  color: var(--ink-600);
+  line-height: 1.6;
+}
+
+.process-mini-thumb {
+  position: relative;
+  z-index: 1;
+  width: clamp(80px, 12vw, 120px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid var(--cream-50);
+  box-shadow: 0 12px 24px rgb(16 45 37 / 8%);
+}
+
+.process-mini-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--motion-slow) var(--ease-out-ui);
+}
+
+.process-step:hover .process-mini-thumb img {
+  transform: scale(1.08);
 }
 
 .brewing-grid,
@@ -1851,15 +1847,6 @@ p {
     grid-template-columns: 1fr;
   }
 
-  .process-step,
-  .process-step:nth-child(3n + 1),
-  .process-step:nth-child(4),
-  .process-step:nth-child(7) {
-    grid-column: auto;
-    grid-row: auto;
-    min-height: 330px;
-    transform: none;
-  }
 
   .brewing-grid,
   .review-grid,
@@ -2919,14 +2906,8 @@ button.status-pill {
     transform: translateY(-4px);
   }
 
-  .process-feature:hover img,
-  .process-step:hover img {
+  .process-feature:hover img {
     transform: scale(1.06);
-  }
-
-  .process-step:hover {
-    border-color: rgb(173 127 41 / 36%);
-    box-shadow: 0 30px 78px rgb(16 45 37 / 18%);
   }
 
   .product-media:hover {

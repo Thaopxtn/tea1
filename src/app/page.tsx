@@ -237,7 +237,7 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="process-shell">
+          <div className="process-shell typo-layout">
             <figure className="process-feature">
               <Image
                 src="/images/nghe-nhan.png"
@@ -257,21 +257,21 @@ export default function HomePage() {
             >
               {teaProcessSteps.map((step, index) => (
                 <li className="process-step" key={step.title}>
-                  <span className="process-index">
+                  <div className="process-number" aria-hidden="true">
                     {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <div className="process-thumb">
-                    <Image
-                      src={step.image}
-                      alt={step.alt}
-                      fill
-                      sizes="(max-width: 700px) 38vw, (max-width: 1100px) 22vw, 12vw"
-                    />
                   </div>
                   <div className="process-copy">
                     <span className="process-craft">{step.craft}</span>
                     <strong>{step.title}</strong>
                     <p>{step.detail}</p>
+                  </div>
+                  <div className="process-mini-thumb">
+                    <Image
+                      src={step.image}
+                      alt={step.alt}
+                      width={100}
+                      height={100}
+                    />
                   </div>
                 </li>
               ))}
