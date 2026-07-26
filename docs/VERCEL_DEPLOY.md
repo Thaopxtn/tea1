@@ -15,7 +15,7 @@ Vercel có thể tự nhận diện Next.js từ `package.json`. Không cần t�
 
 ## Environment Variables bắt buộc
 
-Nhập các biến này trong Vercel tại `Project Settings -> Environment Variables`.
+Nhập các biến trong `docs/VERCEL_ENV_MINIMUM.example` tại `Project Settings -> Environment Variables`. Không tạo biến optional nếu chưa có giá trị thật, vì Vercel không chấp nhận value trống khi bạn thêm key thủ công.
 
 - `NEXT_PUBLIC_SITE_URL`: domain HTTPS chính thức, ví dụ `https://tramocsuong.vn`.
 - `DATABASE_URL`: PostgreSQL production có TLS, ví dụ có `sslmode=require`.
@@ -23,8 +23,20 @@ Nhập các biến này trong Vercel tại `Project Settings -> Environment Vari
 - `AUTH_SECRET`: chuỗi ngẫu nhiên tối thiểu 32 ký tự.
 - `ADMIN_EMAIL`: email quản trị thật.
 - `ADMIN_PASSWORD`: mật khẩu quản trị mạnh, không dùng lại ở nơi khác.
-- `NEXT_PUBLIC_LEGAL_NAME`, `NEXT_PUBLIC_HOTLINE`, `NEXT_PUBLIC_CONTACT_EMAIL`, `NEXT_PUBLIC_BUSINESS_ADDRESS`, `NEXT_PUBLIC_TAX_CODE`, `NEXT_PUBLIC_BUSINESS_LICENSE`: chỉ điền thông tin đã xác minh.
 - `PAYMENT_MODE=disabled` khi chưa thanh toán thật; đổi sang `live` sau khi đã kiểm thử sandbox.
+
+## Environment Variables tùy chọn
+
+Chỉ thêm các biến dưới đây khi đã có giá trị thật. Nếu chưa dùng, đừng tạo key trên Vercel.
+
+Thông tin pháp lý/liên hệ public:
+
+- `NEXT_PUBLIC_LEGAL_NAME`
+- `NEXT_PUBLIC_HOTLINE`
+- `NEXT_PUBLIC_CONTACT_EMAIL`
+- `NEXT_PUBLIC_BUSINESS_ADDRESS`
+- `NEXT_PUBLIC_TAX_CODE`
+- `NEXT_PUBLIC_BUSINESS_LICENSE`
 
 Nếu bật thanh toán online, nhập thêm:
 
@@ -37,7 +49,7 @@ Nếu bật thanh toán online, nhập thêm:
 - `MOMO_PAYMENT_URL`
 - `MOMO_IPN_URL`
 
-Nếu dùng webhook email/liên hệ:
+Nếu dùng webhook email/liên hệ, nhập thêm. Nếu chưa có webhook thì bỏ qua cả hai biến này:
 
 - `EMAIL_WEBHOOK_URL`
 - `EMAIL_WEBHOOK_TOKEN`
@@ -77,3 +89,4 @@ Seed không tạo tài khoản admin mặc định.
 - Không dùng database local cho Production.
 - Không tắt `ADMIN_AUTH_REQUIRED` trên Production.
 - Không dùng domain HTTP cho `NEXT_PUBLIC_SITE_URL`; production bắt buộc HTTPS.
+- Không tạo biến optional với value rỗng trên Vercel; hãy bỏ qua biến đó cho đến khi có dịch vụ thật.

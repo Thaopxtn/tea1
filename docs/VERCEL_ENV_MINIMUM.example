@@ -1,0 +1,11 @@
+# Minimal Vercel Environment Variables for the first deploy.
+# Replace every placeholder before using Production.
+
+NEXT_PUBLIC_SITE_URL=https://your-domain.example
+NEXT_PUBLIC_ANALYTICS_DEBUG=false
+DATABASE_URL=postgresql://user:password@host:5432/tra_moc_suong?sslmode=require
+ADMIN_AUTH_REQUIRED=true
+AUTH_SECRET=replace-with-a-random-secret-at-least-32-characters
+ADMIN_EMAIL=admin@example.com
+ADMIN_PASSWORD=replace-with-a-strong-private-password
+PAYMENT_MODE=disabled

@@ -30,7 +30,7 @@ Seed chỉ đồng bộ catalog, không tạo tài khoản quản trị mặc đ
 
 ## Cấu hình production bắt buộc
 
-Sao chép các key trong `.env.example` vào secret manager của nền tảng:
+Sao chép các key bắt buộc trong `.env.example` hoặc `docs/VERCEL_ENV_MINIMUM.example` vào secret manager của nền tảng. Không tạo các biến optional trên Vercel nếu chưa có giá trị thật:
 
 - `NEXT_PUBLIC_SITE_URL`: domain HTTPS chính thức dùng cho canonical, Open Graph, robots và sitemap.
 - `DATABASE_URL`: PostgreSQL production với `sslmode=require`.
@@ -69,7 +69,7 @@ Khi import GitHub repo lên Vercel:
 - Output Directory: để mặc định.
 - Node.js Version: 22 hoặc 24.
 
-Nhập toàn bộ biến cần thiết từ `.env.example` vào Vercel Environment Variables, đặc biệt `NEXT_PUBLIC_SITE_URL`, `DATABASE_URL`, `AUTH_SECRET`, `ADMIN_EMAIL`, `ADMIN_PASSWORD` và thông tin pháp lý/liên hệ thật. Hướng dẫn chi tiết nằm tại `docs/VERCEL_DEPLOY.md`.
+Nhập các biến bắt buộc từ `docs/VERCEL_ENV_MINIMUM.example` vào Vercel Environment Variables: `NEXT_PUBLIC_SITE_URL`, `DATABASE_URL`, `AUTH_SECRET`, `ADMIN_EMAIL`, `ADMIN_PASSWORD`, `PAYMENT_MODE`. Những biến email/thanh toán/pháp lý chưa có giá trị thật thì chưa tạo trên Vercel. Hướng dẫn chi tiết nằm tại `docs/VERCEL_DEPLOY.md`.
 
 ### Checklist chung
 
