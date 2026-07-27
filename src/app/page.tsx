@@ -13,6 +13,7 @@ import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 import { FeaturedProducts } from "@/components/home/featured-products";
 import { TeaFinder } from "@/components/home/tea-finder";
+import { ProcessTimeline } from "@/components/home/process-timeline";
 import { categories } from "@/data/products";
 
 export const metadata: Metadata = {
@@ -40,64 +41,7 @@ const articles = [
   ],
 ];
 
-const teaProcessSteps = [
-  {
-    title: "Thu hái",
-    detail:
-      "Chọn một tôm hai lá vào sáng sớm, tránh búp dập nát để giữ hương xanh non.",
-    craft: "Búp non",
-    image: "/images/catalog-tra-bup.webp",
-    alt: "Búp trà Thái Nguyên xanh non vừa được thu hái",
-  },
-  {
-    title: "Làm héo",
-    detail:
-      "Trải mỏng trên nong tre để lá dịu xuống, bay bớt ẩm nhưng vẫn còn độ mềm.",
-    craft: "Hong dịu",
-    image: "/images/nghe-nhan.png",
-    alt: "Đôi tay nghệ nhân tuyển và làm héo búp chè trên nia tre",
-  },
-  {
-    title: "Diệt men",
-    detail:
-      "Dùng nhiệt cao đúng lúc để khóa màu nước xanh và hạn chế oxy hóa quá đà.",
-    craft: "Khóa hương",
-    image: "/images/tra-bup-thai-nguyen.png",
-    alt: "Búp trà xanh sau công đoạn diệt men",
-  },
-  {
-    title: "Vò trà",
-    detail:
-      "Vò đều tay để cánh săn lại, giải phóng dịch trà và tạo dáng cong tự nhiên.",
-    craft: "Tạo cánh",
-    image: "/images/tra-moc-cau-thai-nguyen.png",
-    alt: "Cánh trà móc câu Thái Nguyên sau khi vò tạo dáng",
-  },
-  {
-    title: "Sao khô",
-    detail:
-      "Sao nhiều lượt với lửa nhỏ dần để hạ ẩm, cố định hương cốm và hậu ngọt.",
-    craft: "Giữ hậu",
-    image: "/images/catalog-tra-moc-cau.webp",
-    alt: "Cánh trà khô xanh sẫm sau khi sao",
-  },
-  {
-    title: "Phân loại",
-    detail:
-      "Sàng bỏ cám, cánh vụn và chọn lại theo độ đều để mẻ trà sạch, đẹp mắt.",
-    craft: "Sàng tuyển",
-    image: "/images/tra-still-life.png",
-    alt: "Trà khô được bày cùng chén gốm để kiểm tra thành phẩm",
-  },
-  {
-    title: "Đóng gói",
-    detail:
-      "Đóng kín, hạn chế oxy và hơi ẩm để hương trà ổn định khi đến tay người uống.",
-    craft: "Khóa tươi",
-    image: "/images/catalog-hop-qua.webp",
-    alt: "Hộp quà trà được đóng gói chỉn chu",
-  },
-];
+
 
 export default function HomePage() {
   return (
@@ -237,46 +181,7 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="process-shell typo-layout">
-            <figure className="process-feature">
-              <Image
-                src="/images/nghe-nhan.png"
-                alt="Nghệ nhân Thái Nguyên tuyển búp trà trên nia tre trong ánh sáng dịu"
-                fill
-                sizes="(max-width: 900px) 100vw, 42vw"
-              />
-              <figcaption>
-                <span>Mẻ xuân</span>
-                <strong>Canh hương bằng tay, giữ vị bằng lửa.</strong>
-              </figcaption>
-            </figure>
-
-            <ol
-              className="process-list"
-              aria-label="Bảy bước chế biến trà Thái Nguyên"
-            >
-              {teaProcessSteps.map((step, index) => (
-                <li className="process-step" key={step.title}>
-                  <div className="process-number" aria-hidden="true">
-                    {String(index + 1).padStart(2, "0")}
-                  </div>
-                  <div className="process-copy">
-                    <span className="process-craft">{step.craft}</span>
-                    <strong>{step.title}</strong>
-                    <p>{step.detail}</p>
-                  </div>
-                  <div className="process-mini-thumb">
-                    <Image
-                      src={step.image}
-                      alt={step.alt}
-                      width={100}
-                      height={100}
-                    />
-                  </div>
-                </li>
-              ))}
-            </ol>
-          </div>
+          <ProcessTimeline />
         </div>
       </section>
 
