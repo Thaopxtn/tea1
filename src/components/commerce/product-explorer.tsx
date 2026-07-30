@@ -270,7 +270,7 @@ export function ProductExplorer({
           </label>
         </div>
         {filtered.length ? (
-          <div className="product-grid">
+          <div className="product-grid" suppressHydrationWarning>
             {filtered.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}

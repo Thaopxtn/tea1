@@ -10,7 +10,7 @@ import type { Product } from "@/types/product";
 export function ProductCard({ product }: { product: Product }) {
   const variant = getAvailableVariant(product);
   return (
-    <article className="product-card">
+    <article className="product-card" suppressHydrationWarning>
       <div className="product-media">
         <Link
           href={`/san-pham/${product.slug}`}
