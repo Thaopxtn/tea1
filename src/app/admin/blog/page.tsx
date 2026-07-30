@@ -1,10 +1,8 @@
-import { PrismaClient } from "@/generated/prisma";
+import { getDb } from "@/lib/db";
 import { format } from "date-fns";
 import { vi } from "date-fns/locale";
 import Link from "next/link";
 import { PlusCircle, FileText, ChevronLeft } from "lucide-react";
-
-const prisma = new PrismaClient();
 
 export const metadata = {
   title: "Quản lý Blog & SEO - Admin",
@@ -12,6 +10,9 @@ export const metadata = {
 };
 
 export default async function AdminBlogPage() {
+  const prisma = getDb();
+  if (!prisma) return null;
+
   const articles = await prisma.article.findMany({
     orderBy: { createdAt: "desc" },
   });

@@ -1,7 +1,7 @@
-import { PrismaClient } from "../src/generated/prisma";
+import { getDb } from "../src/lib/db";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-const prisma = new PrismaClient();
+const prisma = getDb()!;
 
 // Yêu cầu: Đặt biến môi trường GEMINI_API_KEY trước khi chạy
 const apiKey = process.env.GEMINI_API_KEY;
@@ -15,13 +15,13 @@ const genAI = new GoogleGenerativeAI(apiKey);
 const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
 // Danh sách chủ đề cơ bản về trà Thái Nguyên
-const topics = [
-  "Cách pha trà Đinh chuẩn vị",
-  "Nguồn gốc trà Thái Nguyên",
-  "Phân biệt trà Nõn Tôm và trà Móc Câu",
-  "Tác dụng của trà xanh đối với sức khỏe",
-  "Nghệ thuật ướp trà sen Hồ Tây",
-];
+// const topics = [
+//   "Cách pha trà Đinh chuẩn vị",
+//   "Nguồn gốc trà Thái Nguyên",
+//   "Phân biệt trà Nõn Tôm và trà Móc Câu",
+//   "Tác dụng của trà xanh đối với sức khỏe",
+//   "Nghệ thuật ướp trà sen Hồ Tây",
+// ];
 
 function generateSlug(text: string) {
   return text
@@ -43,7 +43,7 @@ Không đánh số, chỉ xuất text.`;
 
   const result = await model.generateContent(prompt);
   const text = result.response.text();
-  return text.split("\n").map(t => t.trim()).filter(t => t.length > 5);
+  return text.split("\n").map((t: string) => t.trim()).filter((t: string) => t.length > 5);
 }
 
 async function generateArticle(title: string) {
@@ -68,7 +68,7 @@ Chỉ trả về JSON hợp lệ, không chứa markdown markdown code block \`\
   
   try {
     return JSON.parse(text);
-  } catch (error) {
+  } catch (err: unknown) {
     console.error(`Lỗi parse JSON cho bài viết "${title}". Bỏ qua.`);
     return null;
   }
@@ -124,6 +124,7 @@ main()
     console.error(e);
     process.exit(1);
   })
-  .finally(async () => {
-    await prisma.$disconnect();
+  .finally(() => {
+    // getDb() manages the lifecycle, no need to manually disconnect in script unless process hangs
+    process.exit(0);
   });

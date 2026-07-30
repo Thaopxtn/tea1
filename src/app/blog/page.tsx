@@ -1,9 +1,7 @@
 import Link from "next/link";
-import { PrismaClient } from "@/generated/prisma";
+import { getDb } from "@/lib/db";
 import { format } from "date-fns";
 import { vi } from "date-fns/locale";
-
-const prisma = new PrismaClient();
 
 export const metadata = {
   title: "Blog & Kiến thức Trà - Trà Mộc Sương",
@@ -11,6 +9,9 @@ export const metadata = {
 };
 
 export default async function BlogPage() {
+  const prisma = getDb();
+  if (!prisma) return null;
+
   const articles = await prisma.article.findMany({
     where: { status: "ACTIVE" },
     orderBy: { publishedAt: "desc" },

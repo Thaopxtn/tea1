@@ -1,15 +1,18 @@
-import { PrismaClient } from "@/generated/prisma";
+import { getDb } from "@/lib/db";
 import { notFound } from "next/navigation";
 import { format } from "date-fns";
 import { vi } from "date-fns/locale";
-
-const prisma = new PrismaClient();
+import Link from "next/link";
+import { ChevronLeft } from "lucide-react";
+import Image from "next/image";
 
 interface Props {
   params: { slug: string };
 }
 
 export async function generateMetadata({ params }: Props) {
+  const prisma = getDb();
+  if (!prisma) return {};
   const article = await prisma.article.findUnique({
     where: { slug: params.slug },
   });
@@ -23,6 +26,11 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default async function ArticlePage({ params }: Props) {
+  const prisma = getDb();
+  if (!prisma) {
+    notFound();
+  }
+
   const article = await prisma.article.findUnique({
     where: { slug: params.slug },
   });

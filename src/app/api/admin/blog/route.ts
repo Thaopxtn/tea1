@@ -1,11 +1,12 @@
-import { PrismaClient } from "@/generated/prisma";
+import { getDb } from "@/lib/db";
 import { NextResponse } from "next/server";
 import { requireAdmin } from "@/lib/require-admin";
 
-const prisma = new PrismaClient();
-
 export async function POST(request: Request) {
   try {
+    const prisma = getDb();
+    if (!prisma) return NextResponse.json({ error: "DB Error" }, { status: 500 });
+
     // Basic Auth Check
     const admin = await requireAdmin();
     if (!admin) {
@@ -49,7 +50,5 @@ export async function POST(request: Request) {
       { error: "Đã có lỗi xảy ra khi lưu bài viết." },
       { status: 500 }
     );
-  } finally {
-    await prisma.$disconnect();
   }
 }

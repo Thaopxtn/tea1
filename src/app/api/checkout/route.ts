@@ -1,7 +1,5 @@
-import { PrismaClient } from "@/generated/prisma";
+import { getDb } from "@/lib/db";
 import { NextResponse } from "next/server";
-
-const prisma = new PrismaClient();
 
 // Hàm tạo mã đơn hàng ngẫu nhiên (VD: MS-8A2F9)
 function generateOrderId() {
@@ -15,6 +13,9 @@ function generateOrderId() {
 
 export async function POST(request: Request) {
   try {
+    const prisma = getDb();
+    if (!prisma) return NextResponse.json({ error: "DB Error" }, { status: 500 });
+
     const body = await request.json();
     const { customerName, phone, email, shippingAddress, note, paymentMethod, items } = body;
 
@@ -63,7 +64,5 @@ export async function POST(request: Request) {
       { error: "Đã có lỗi xảy ra khi xử lý đơn hàng. Vui lòng thử lại." },
       { status: 500 }
     );
-  } finally {
-    await prisma.$disconnect();
   }
 }
