@@ -5,6 +5,7 @@ import {
   PackageCheck,
   ShieldCheck,
   UsersRound,
+  FileText,
 } from "lucide-react";
 
 import { PaymentStatus } from "@/generated/prisma/enums";
@@ -35,6 +36,12 @@ const quickLinks = [
     label: "Đơn hàng",
     description: "Lọc và cập nhật tiến độ xử lý đơn.",
     icon: ClipboardList,
+  },
+  {
+    href: "/admin/blog",
+    label: "Blog & SEO",
+    description: "Quản lý bài viết và tối ưu hóa tìm kiếm.",
+    icon: FileText,
   },
 ];
 

@@ -29,6 +29,9 @@ type CommerceState = {
   toggleWishlist: (productId: string) => void;
   saveOrder: (order: DemoOrder) => void;
   clearCart: () => void;
+  isCartOpen: boolean;
+  openCart: () => void;
+  closeCart: () => void;
 };
 
 export const useCommerceStore = create<CommerceState>()(
@@ -93,6 +96,9 @@ export const useCommerceStore = create<CommerceState>()(
       saveOrder: (order) =>
         set((state) => ({ orders: [order, ...state.orders] })),
       clearCart: () => set({ cart: [] }),
+      isCartOpen: false,
+      openCart: () => set({ isCartOpen: true }),
+      closeCart: () => set({ isCartOpen: false }),
     }),
     {
       name: "moc-suong-commerce",

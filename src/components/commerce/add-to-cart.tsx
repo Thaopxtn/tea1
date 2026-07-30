@@ -19,11 +19,12 @@ export function AddToCart({
   disabled?: boolean;
   compact?: boolean;
 }) {
-  const addToCart = useCommerceStore((state) => state.addToCart);
+  const { addToCart, openCart } = useCommerceStore((state) => state);
   const [added, setAdded] = useState(false);
 
   const handleAdd = () => {
     addToCart(productId, variantId);
+    openCart();
     setAdded(true);
     track("add_to_cart", { productId, variantId });
     toast.success("Đã thêm vào giỏ", {

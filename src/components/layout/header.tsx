@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
 import { SearchDialog } from "@/components/layout/search-dialog";
+import { CartDrawer } from "@/components/layout/cart-drawer";
 import { brandConfig } from "@/config/brand";
 import { useHydrated } from "@/hooks/use-hydrated";
 import { useCommerceStore } from "@/store/commerce-store";
@@ -61,6 +62,7 @@ export function Header() {
     state.cart.reduce((total, line) => total + line.quantity, 0),
   );
   const wishCount = useCommerceStore((state) => state.wishlist.length);
+  const openCart = useCommerceStore((state) => state.openCart);
 
   useEffect(() => {
     document.documentElement.dataset.hydrated = "true";
@@ -236,17 +238,18 @@ export function Header() {
               <Heart aria-hidden="true" size={21} />
               {hydrated && wishCount > 0 ? <span>{wishCount}</span> : null}
             </Link>
-            <Link
+            <button
               className="icon-button count-button"
-              href="/gio-hang"
+              onClick={openCart}
               aria-label={`Giỏ hàng có ${hydrated ? cartCount : 0} sản phẩm`}
             >
               <ShoppingBag aria-hidden="true" size={21} />
               {hydrated && cartCount > 0 ? <span>{cartCount}</span> : null}
-            </Link>
+            </button>
           </div>
         </div>
       </header>
+      <CartDrawer />
     </>
   );
 }

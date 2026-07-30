@@ -49,15 +49,26 @@ const categoryDetailImage: Record<string, string> = {
   "tra-cu": "/images/tra-still-life.png",
 };
 
-const productImage = (name: string, category: string) => [
+const customProductImage: Record<string, string> = {
+  "tra-xanh-uop-hoa-buoi": "/images/tra-hoa-buoi.jpg",
+  "tra-tuyet-thai-nguyen": "/images/tra-tuyet-thai-nguyen.jpg",
+  "tra-moc-cau-thu-phan": "/images/tra-moc-cau-thu.jpg",
+  "loc-tra-gom-moc": "/images/loc-tra-gom.jpg",
+  "hop-qua-thuong-tra-mua-xuan": "/images/hop-qua-mua-xuan.jpg",
+  "tui-loc-tra-xanh": "/images/tra-tui-loc-hien-dai.jpg",
+  "bo-thu-bon-pham-tra": "/images/bo-thu-4-pham-tra.jpg",
+  "am-gom-tro-trau": "/images/am-gom-tro-trau.jpg",
+};
+
+const productImage = (name: string, category: string, slug: string) => [
   {
-    src: categoryImage[category] ?? "/images/tra-still-life.png",
+    src: customProductImage[slug] ?? categoryImage[category] ?? "/images/tra-still-life.png",
     alt: `${name}: ảnh đại diện sản phẩm`,
     width: 1240,
     height: 1240,
   },
   {
-    src: categoryDetailImage[category] ?? "/images/nghe-nhan.png",
+    src: customProductImage[slug] ?? categoryDetailImage[category] ?? "/images/nghe-nhan.png",
     alt: `${name}: góc nhìn cận cảnh`,
     width: 1240,
     height: 1240,
@@ -421,6 +432,66 @@ const seeds: Seed[] = [
     price: 420_000,
     stockStatus: "out-of-stock",
   },
+  {
+    name: "Trà Xanh Ướp Hoa Bưởi",
+    slug: "tra-xanh-uop-hoa-buoi",
+    category: "uop-sen",
+    region: "Tân Cương",
+    grade: "Ướp hương cao cấp",
+    aroma: ["hoa bưởi", "cốm"],
+    taste: ["thanh", "ngọt sâu"],
+    price: 850_000,
+    badges: ["Đặc sản"],
+    collection: "cao-cap",
+  },
+  {
+    name: "Trà Tuyết Thái Nguyên",
+    slug: "tra-tuyet-thai-nguyen",
+    category: "non-tom",
+    region: "La Bằng",
+    grade: "Trà Tuyết",
+    aroma: ["sương sớm", "thảo mộc"],
+    taste: ["dày dặn", "ngọt dài"],
+    price: 1_450_000,
+    badges: ["Thượng hạng"],
+    collection: "cao-cap",
+  },
+  {
+    name: "Trà Móc Câu Thu Phân",
+    slug: "tra-moc-cau-thu-phan",
+    category: "moc-cau",
+    region: "Tân Cương",
+    grade: "Trà Móc Câu",
+    aroma: ["lá khô", "hạt rang"],
+    taste: ["đậm đà", "hậu trầm"],
+    price: 450_000,
+    badges: ["Mùa thu"],
+    collection: "hang-ngay",
+  },
+  {
+    name: "Lọc Trà Gốm Mộc",
+    slug: "loc-tra-gom-moc",
+    category: "tra-cu",
+    region: "Bát Tràng",
+    grade: "Trà cụ",
+    aroma: ["không áp dụng"],
+    taste: ["không áp dụng"],
+    price: 120_000,
+    badges: ["Thủ công"],
+  },
+  {
+    name: "Hộp Quà Thưởng Trà Mùa Xuân",
+    slug: "hop-qua-thuong-tra-mua-xuan",
+    category: "hop-qua",
+    region: "Thái Nguyên",
+    grade: "Quà biếu",
+    aroma: ["hương hoa", "trà xanh"],
+    taste: ["tinh tế", "cân bằng"],
+    price: 1_250_000,
+    badges: ["Quà VIP"],
+    collection: "qua-bieu",
+    gift: true,
+  },
 ];
 
 export const products: Product[] = seeds.map((seed, index) => {
@@ -476,7 +547,7 @@ export const products: Product[] = seeds.map((seed, index) => {
           },
         ]
       : makeVariants(seed.slug, seed.price, seed.gift),
-    images: productImage(seed.name, seed.category),
+    images: productImage(seed.name, seed.category, seed.slug),
     rating: 4.4 + (index % 5) * 0.1,
     reviewCount: 8 + index * 3,
     stockStatus: seed.stockStatus ?? "in-stock",

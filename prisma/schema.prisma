@@ -149,3 +149,21 @@ model PaymentEvent {
   @@index([orderId])
   @@unique([provider, externalId])
 }
+
+model Article {
+  id               String   @id @default(cuid())
+  slug             String   @unique
+  title            String
+  content          String
+  excerpt          String?
+  metaTitle        String?
+  metaDescription  String?
+  featuredImage    String?
+  status           ProductStatus @default(DRAFT)
+  publishedAt      DateTime?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@index([slug])
+  @@index([status, publishedAt])
+}
